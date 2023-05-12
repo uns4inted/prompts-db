@@ -17,8 +17,8 @@ export const GET = async (req, { params }) => {
   }
 };
 
-// PATH
-export const PATH = async (req, { params }) => {
+// PATCH (update)
+export const PATCH = async (req, { params }) => {
   const { prompt, tag } = await req.json();
 
   try {

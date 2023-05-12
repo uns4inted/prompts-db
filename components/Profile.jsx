@@ -12,10 +12,10 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
         {data.map((prompt) => {
           return (
             <PromptCard
-              key={prompt.id}
+              key={prompt._id}
               post={prompt}
-              handleEdit={() => handleEdit && handleEdit(post)}
-              handleDelete={() => handleDelete && handleDelete(post)}
+              handleEdit={() => handleEdit && handleEdit(prompt)}
+              handleDelete={() => handleDelete && handleDelete(prompt)}
             />
           );
         })}

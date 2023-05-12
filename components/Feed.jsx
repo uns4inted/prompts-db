@@ -11,7 +11,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
       {data.map((prompt) => {
         return (
           <PromptCard
-            key={prompt.id}
+            key={prompt._id}
             post={prompt}
             handleTagClick={handleTagClick}
           />
