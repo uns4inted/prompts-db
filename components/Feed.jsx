@@ -64,7 +64,6 @@ const Feed = () => {
         regex.test(post.prompt)
       );
     });
-    console.log(res);
     return res;
   };
 
