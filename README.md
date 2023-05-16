@@ -1,8 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# promtsDB
+This is full stack application created with the Next.js 13 framework.
+The application is a database for sharing and discovering prompts for the AI platforms.
 
-## Getting Started
+User can authorize using Google OAuth 2.0 to add new posts.
 
-First, run the development server:
+Visit the app at: [https://prompts-db.vercel.app/](https://prompts-db.vercel.app/).<br>
+Using Vercel for deployment.
+
+## Source code usage:
+
+To run the development server use:
 
 ```bash
 npm run dev
@@ -14,21 +21,35 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### Environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+The app is using environment variables, so for local usage you need to create `.env` file with following content or add the variables to your remote environment.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Dont forget to replace `<placeholders>` with your real data.**
+  
+```.env
+# Google Auth:
+# Setting up OAuth 2.0: https://support.google.com/cloud/answer/6158849
+# Remember to configure Authorized JavaScript origins and Authorized redirect URIs in your Google Cloud Console.
+GOOGLE_CLIENT_ID=<your_client_id>
+GOOGLE_CLIENT_SECRET=<your_client_secret>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# MongoDB:
+# Generate your unique mongo db URI in format below.
+MONGODB_URI=mongodb+srv://<login>:<password>@<your-cluster>.<selected-server>.mongodb.net/?retryWrites=true&w=majority
 
-## Deploy on Vercel
+# More in docs: https://www.mongodb.com/docs/atlas/getting-started/
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Next Auth Secrets:
+# For local runs use following URLs, but for the remote deployment - replace them with your domain name.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL_INTERNAL=http://localhost:3000
+NEXTAUTH_SECRET=somErAndOmStRiNGiNtHisForMat+uh86E=
+
+# Secret is randomly generated string, see docs on how to get one: https://next-auth.js.org/configuration/options#secret
+```
+#### Google OAuth 2.0, Authorized JavaScript origins and Authorized redirect URIs:
+![image w:200](https://github.com/uns4inted/prompts-db/assets/46504720/6d889bfd-93dd-4cfb-8c1f-842b7ad75a75)
