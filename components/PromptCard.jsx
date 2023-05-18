@@ -63,7 +63,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           onClick={() => {
             handleTagClick && handleTagClick(post.tag);
           }}>
-          {post.tag}
+          #{post.tag}
         </p>
       </div>
 

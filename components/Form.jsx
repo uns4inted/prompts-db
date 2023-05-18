@@ -1,6 +1,14 @@
 import Link from "next/link";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+  const tagInputValidation = (e) => {
+    // regex for alphanumeric, underscore and 20 characters long
+    let regex = /^[a-zA-Z0-9_]{0,20}$/;
+    if (e.target.value.match(regex)) {
+      setPost({ ...post, tag: e.target.value });
+    }
+  };
+
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
@@ -34,8 +42,8 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           </span>
           <input
             value={post.tag}
-            onChange={(e) => setPost({ ...post, tag: e.target.value })}
-            placeholder="#tag"
+            onChange={tagInputValidation}
+            placeholder="Tag without # symbol"
             required
             className="form_input"
           />
