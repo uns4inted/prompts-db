@@ -9,7 +9,13 @@ import Profile from "@components/Profile";
 const MyProfile = () => {
   const router = useRouter();
 
-  const { data: session } = useSession();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // Redirect from page if not logged in
+      router.push("/");
+    }
+  });
   const [posts, setPosts] = useState([]); // prompts of current user
 
   useEffect(() => {
@@ -42,6 +48,10 @@ const MyProfile = () => {
     }
   };
 
+  if(!session) {
+    return null;
+  }
+  
   return (
     <Profile
       name="My"

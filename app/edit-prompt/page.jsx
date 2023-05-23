@@ -7,7 +7,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Form from "@components/Form";
 const EditPrompt = () => {
   const router = useRouter();
-  //   const { data: session } = useSession();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // Redirect from page if not logged in
+      router.push("/");
+    }
+  });
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
 
@@ -53,6 +59,10 @@ const EditPrompt = () => {
     }
   };
 
+  if(!session) {
+    return null;
+  }
+  
   return (
     <Form
       type="Edit"

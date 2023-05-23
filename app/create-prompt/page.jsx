@@ -7,7 +7,13 @@ import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 const CreatePrompt = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // Redirect from page if not logged in
+      router.push("/");
+    }
+  });
 
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
@@ -38,6 +44,11 @@ const CreatePrompt = () => {
       setSubmitting(false);
     }
   };
+
+  if(!session) {
+    return null;
+  }
+  
   return (
     <Form
       type="Create"
