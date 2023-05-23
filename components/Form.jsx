@@ -11,19 +11,19 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
   return (
     <section className="w-full max-w-full flex-start flex-col">
-      <h1 className="head_text text-left">
+      <h1 className="head_text text-left dark: head_text_dark">
         <span className="blue_gradient">{type} Prompt</span>
       </h1>
-      <p className="desc text-left max-w-md">
+      <p className="desc text-left max-w-md dark: desc_dark">
         {type} and share amazing prompts with the community, get inspired by
         others and try them out on different AI-powered platforms.
       </p>
 
       <form
         onSubmit={handleSubmit}
-        className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism">
+        className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism dark: glassmorphism_dark">
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700">
+          <span className="font-satoshi font-semibold text-base text-gray-700 dark:text-neutral-200">
             Your AI prompt
           </span>
           <textarea
@@ -34,7 +34,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="form_textarea"></textarea>
         </label>
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700">
+          <span className="font-satoshi font-semibold text-base text-gray-700 dark:text-neutral-200">
             Tag {` `}
             <span className="font-normal">
               (#product, #webdevelopment, #idea)
@@ -49,7 +49,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           />
         </label>
         <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/" className="text-gray-500 text-sm">
+          <Link href="/" className="text-gray-500 text-sm dark:text-neutral-200">
             Cancel
           </Link>
 

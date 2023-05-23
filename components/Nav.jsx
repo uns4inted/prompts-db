@@ -29,23 +29,23 @@ const Nav = () => {
           height={38}
           className="object-contain"
         />
-        <p className="logo_text">promptsDB</p>
+        <p className="logo_text dark: logo_text_dark">promptsDB</p>
       </Link>
 
       {/* desktop navigation */}
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
+            <Link href="/create-prompt" className="black_btn dark: white_btn">
               Create Prompt
             </Link>
-            <button type="button" className="outline_btn" onClick={signOut}>
+            <button type="button" className="outline_btn dark: outline_btn_white" onClick={signOut}>
               Sign Out
             </button>
 
             <Link href="/profile">
               <Image
-                src={session?.user.image} // TODO: replace with user profile image
+                src={session?.user.image}
                 alt="profile"
                 className="rounded-full cursor-pointer"
                 width={37}
@@ -56,13 +56,13 @@ const Nav = () => {
         ) : (
           <>
             {providers &&
-              // TODO: replace with next-auth providers
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                  className="black_btn">
+                  className="black_btn"
+                >
                   Sign In
                 </button>
               ))}
@@ -86,17 +86,19 @@ const Nav = () => {
             />
 
             {toggleDropdown && (
-              <div className="dropdown">
+              <div className="dropdown ">
                 <Link
                   href="/profile"
-                  className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}>
+                  className="dropdown_link "
+                  onClick={() => setToggleDropdown(false)}
+                >
                   My Profile
                 </Link>
                 <Link
                   href="/create-prompt"
-                  className="dropdown_link"
-                  onClick={() => setToggleDropdown(false)}>
+                  className="dropdown_link "
+                  onClick={() => setToggleDropdown(false)}
+                >
                   Create Prompt
                 </Link>
                 <button
@@ -105,7 +107,8 @@ const Nav = () => {
                   onClick={() => {
                     setToggleDropdown(false);
                     signOut();
-                  }}>
+                  }}
+                >
                   Sign Out
                 </button>
               </div>
@@ -119,7 +122,8 @@ const Nav = () => {
                   type="button"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                  className="black_btn">
+                  className="black_btn"
+                >
                   Sign In
                 </button>
               ))}

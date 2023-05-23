@@ -13,8 +13,8 @@ const RootLayout = ({ children }) => {
     <html lang="en">
       <body>
         <Provider>
-          <div className="main">
-            ⠀<div className="gradient">⠀</div>
+          <div className="main dark: main-dark">
+            ⠀<div className="gradient dark: no-gradient">⠀</div>
           </div>
           <main className="app">
             <Nav />

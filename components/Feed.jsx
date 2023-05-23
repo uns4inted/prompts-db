@@ -27,6 +27,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]); // all prompts
   const [filteredPosts, setFilteredPosts] = useState([]); // filtered promts by [searchText]
 
+  // TODO: add loading spinner
   const handleSearchChange = (e) => {
     clearTimeout(searchTimerId); // clear previous timer
     setSearchText(e.target.value);
@@ -72,11 +73,11 @@ const Feed = () => {
       <form className="relative w-full flex-center">
         <input
           type="text"
-          placeholder="Search for a tag or a username"
+          placeholder="Search by prompt, tag, or username"
           value={searchText}
           onChange={handleSearchChange}
           required
-          className="search_input peer"
+          className="search_input peer dark: search_input_dark"
         />
       </form>
       <PromptCardList

@@ -40,6 +40,17 @@
   filter: invert(1);
 }
 
+.main-dark {
+  @apply bg-black;
+
+  &:before {
+    background: none;
+  }
+  &:after {
+    background: none;
+  }
+}
+
 .gradient {
   height: fit-content;
   z-index: 3;
@@ -65,6 +76,10 @@
   opacity: 0.15;
 }
 
+.no-gradient {
+  display: none;
+}
+
 @media screen and (max-width: 640px) {
   .main {
     padding: 0;
@@ -85,8 +100,20 @@
   @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
 }
 
+.white_btn {
+  @apply rounded-full border border-white bg-white py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
+}
+
+.outline_btn_white {
+  @apply rounded-full border border-white bg-transparent py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+}
+
 .head_text {
   @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
+}
+
+.head_text_dark {
+  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-white sm:text-6xl;
 }
 
 .orange_gradient {
@@ -105,8 +132,16 @@
   @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
 }
 
+.desc_dark {
+  @apply mt-5 text-lg text-gray-200 sm:text-xl max-w-2xl;
+}
+
 .search_input {
   @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-gray-400 focus:outline-none focus:ring-0;
+}
+
+.search_input_dark {
+  @apply block w-full rounded-md border border-neutral-400 bg-neutral-300 py-2.5 font-satoshi placeholder:text-neutral-700 pl-5 pr-12 text-sm shadow-lg font-medium focus:border-neutral-600 focus:outline-none focus:ring-0;
 }
 
 .copy_btn {
@@ -115,6 +150,10 @@
 
 .glassmorphism {
   @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+}
+
+.glassmorphism_dark {
+  @apply rounded-xl border border-gray-200 bg-black/90 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.1)] backdrop-blur p-5;
 }
 
 .prompt_layout {
@@ -140,6 +179,10 @@
   @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
 }
 
+.logo_text_dark {
+  @apply max-sm:hidden font-satoshi font-semibold text-lg text-white tracking-wide;
+}
+
 .dropdown {
   @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
 }
@@ -151,6 +194,10 @@
 /* PromptCard Component */
 .prompt_card {
   @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+}
+
+.prompt_card_dark {
+  @apply flex-1 break-inside-avoid rounded-lg border border-neutral-800 bg-white/90 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }
 
 .flex-center {
