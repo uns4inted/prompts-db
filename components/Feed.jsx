@@ -50,7 +50,6 @@ const Feed = () => {
     const fetchPosts = async () => {
       const res = await fetch("/api/prompt");
       const data = await res.json();
-      console.log(data); // TODO: remove this log after testing first load issue
       setPosts(data);
       setIsLoading(false);
     };
