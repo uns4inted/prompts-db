@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import PromptCard from "./PromptCard";
 
@@ -22,11 +23,12 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
+  const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [searchTimerId, setSearchTimerId] = useState(null); // timer for search input handler
   const [posts, setPosts] = useState([]); // all prompts
   const [filteredPosts, setFilteredPosts] = useState([]); // filtered promts by [searchText]
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingStauts, setLoadingStatus] = useState('loading');
 
   const handleSearchChange = (e) => {
     clearTimeout(searchTimerId); // clear previous timer
@@ -45,13 +47,23 @@ const Feed = () => {
     setFilteredPosts(filterPrompts(tag));
   };
 
+  const handleReloadPageClick = () => {
+    router.refresh();
+  }
+
   useEffect(() => {
     // fetch data from server
     const fetchPosts = async () => {
-      const res = await fetch("/api/prompt");
-      const data = await res.json();
-      setPosts(data);
-      setIsLoading(false);
+      try {
+        const res = await fetch("/api/prompt");
+        console.log(res); // remove when loading bug is fixed
+        const data = await res.json();
+        setPosts(data);
+        setLoadingStatus('loaded');
+      } catch (error) {
+        setLoadingStatus('error');
+        return;
+      }
     };
     fetchPosts();
   }, []);
@@ -81,16 +93,27 @@ const Feed = () => {
           className="search_input peer dark: search_input_dark"
         />
       </form>
-      {isLoading ? (
+      {loadingStauts === 'loading' &&
         <div className="mt-16">
           <h3 className="head_text text-center dark: head_text_dark">Loading...</h3>
         </div>
-      ) : (
+      }
+      {loadingStauts === 'error' &&
+        <div className="mt-16 flex flex-col items-center">
+          <h1 className="head_text text-center dark: head_text_dark">
+            <span className="text-3xl">Error on loading</span>
+          </h1>
+          <button type="button" className="mt-4 outline_btn dark: outline_btn_white" onClick={handleReloadPageClick}>
+              Try again
+          </button>
+        </div>
+      }
+      { loadingStauts === 'loaded' &&
         <PromptCardList
           data={searchText.length ? filteredPosts : posts}
           handleTagClick={handleTagClick}
         />
-      )}
+      }
     </section>
   );
 };
