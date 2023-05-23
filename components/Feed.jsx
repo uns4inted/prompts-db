@@ -26,8 +26,8 @@ const Feed = () => {
   const [searchTimerId, setSearchTimerId] = useState(null); // timer for search input handler
   const [posts, setPosts] = useState([]); // all prompts
   const [filteredPosts, setFilteredPosts] = useState([]); // filtered promts by [searchText]
+  const [isLoading, setIsLoading] = useState(true);
 
-  // TODO: add loading spinner
   const handleSearchChange = (e) => {
     clearTimeout(searchTimerId); // clear previous timer
     setSearchText(e.target.value);
@@ -50,7 +50,9 @@ const Feed = () => {
     const fetchPosts = async () => {
       const res = await fetch("/api/prompt");
       const data = await res.json();
+      console.log(data); // TODO: remove this log after testing first load issue
       setPosts(data);
+      setIsLoading(false);
     };
     fetchPosts();
   }, []);
@@ -80,10 +82,16 @@ const Feed = () => {
           className="search_input peer dark: search_input_dark"
         />
       </form>
-      <PromptCardList
-        data={searchText.length ? filteredPosts : posts}
-        handleTagClick={handleTagClick}
-      />
+      {isLoading ? (
+        <div className="mt-16">
+          <h3 className="head_text text-center dark: head_text_dark">Loading...</h3>
+        </div>
+      ) : (
+        <PromptCardList
+          data={searchText.length ? filteredPosts : posts}
+          handleTagClick={handleTagClick}
+        />
+      )}
     </section>
   );
 };
