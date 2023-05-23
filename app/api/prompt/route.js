@@ -12,8 +12,6 @@ export const GET = async (req) => {
       status: 200,
     });
   } catch (error) {
-    return new Response(error, {
-      status: 500,
-    });
+    return new Response(error.message, { status: 500 });
   }
 };
