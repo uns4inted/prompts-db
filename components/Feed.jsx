@@ -57,7 +57,6 @@ const Feed = () => {
     const fetchPosts = async () => {
       try {
         const res = await fetch("/api/prompt");
-        console.log(res); // remove when loading bug is fixed
         const data = await res.json();
         setPosts(data);
         setLoadingStatus('loaded');
