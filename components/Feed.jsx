@@ -48,8 +48,9 @@ const Feed = () => {
   };
 
   const handleReloadPageClick = () => {
-    router.refresh();
+    window.location.reload();
   }
+
 
   useEffect(() => {
     // fetch data from server

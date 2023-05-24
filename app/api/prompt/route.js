@@ -2,16 +2,24 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 export const GET = async (req) => {
-  try {
-    await connectToDB();
-    const prompts = await Prompt.find({}).populate("creator");
+  // Vercel serverless functions are getting cold when not used for a while.
+  const maxRetries = 3;
+  let retries = 0;
 
-    console.log(prompts) // TODO: remove when loading bug is fixed
+  while (retries < maxRetries) {
+    try {
+      await connectToDB();
+      const prompts = await Prompt.find({}).populate("creator");
 
-    return new Response(JSON.stringify(prompts), {
-      status: 200,
-    });
-  } catch (error) {
-    return new Response(error.message, { status: 500 });
+      return new Response(JSON.stringify(prompts), {
+        status: 200,
+      });
+    } catch (error) {
+      retries++;
+      console.error(`Error fetching prompts from database: ${error.message}`);
+    }
   }
+
+  // if we get here, it means we failed to fetch data from the database
+  return new Response("Failed to fetch prompts from database", { status: 500 });
 };
