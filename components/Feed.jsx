@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 import PromptCard from "./PromptCard";
 
@@ -23,7 +22,6 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
-  const router = useRouter();
   const [searchText, setSearchText] = useState("");
   const [searchTimerId, setSearchTimerId] = useState(null); // timer for search input handler
   const [posts, setPosts] = useState([]); // all prompts
