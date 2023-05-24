@@ -5,9 +5,8 @@ import User from "@models/user";
 export const GET = async (req) => {
   try {
     await connectToDB();
-    const prompts = await Prompt.find({}).populate({
-      path: "creator",
-      model: User,
+    const prompts = await Prompt.find().populate({
+      path: "creator"
     });
 
     return new Response(JSON.stringify(prompts), {

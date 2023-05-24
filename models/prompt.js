@@ -1,5 +1,4 @@
 import { Schema, model, models } from "mongoose";
-import User from "./user";
 
 const promptSchema = new Schema({
   creator: {
