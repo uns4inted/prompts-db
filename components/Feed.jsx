@@ -28,7 +28,7 @@ const Feed = () => {
   const [searchTimerId, setSearchTimerId] = useState(null); // timer for search input handler
   const [posts, setPosts] = useState([]); // all prompts
   const [filteredPosts, setFilteredPosts] = useState([]); // filtered promts by [searchText]
-  const [loadingStauts, setLoadingStatus] = useState('loading');
+  const [loadingStauts, setLoadingStatus] = useState("loading");
 
   const handleSearchChange = (e) => {
     clearTimeout(searchTimerId); // clear previous timer
@@ -49,22 +49,31 @@ const Feed = () => {
 
   const handleReloadPageClick = () => {
     window.location.reload();
-  }
-
+  };
 
   useEffect(() => {
     // fetch data from server
     const fetchPosts = async () => {
-      try {
-        const res = await fetch("/api/prompt");
-        const data = await res.json();
-        setPosts(data);
-        setLoadingStatus('loaded');
-      } catch (error) {
-        setLoadingStatus('error');
-        return;
+      // Vercel serverless functions are getting cold when not used for a while.
+      const maxRetries = 3;
+      const retryDelay = 200; // 200ms delay between retries
+      let retries = 0;
+
+      while (retries < maxRetries) {
+        try {
+          const res = await fetch("/api/prompt");
+          const data = await res.json();
+          setPosts(data);
+          setLoadingStatus("loaded");
+          break;
+        } catch (error) {
+          retries++;
+          await new Promise((resolve) => setTimeout(resolve, retryDelay));
+        }
+        if (retries === maxRetries) setLoadingStatus("error"); // if auto retry failed, show button for page reload
       }
     };
+
     fetchPosts();
   }, []);
 
@@ -93,27 +102,33 @@ const Feed = () => {
           className="search_input peer dark: search_input_dark"
         />
       </form>
-      {loadingStauts === 'loading' &&
+      {loadingStauts === "loading" && (
         <div className="mt-16">
-          <h3 className="head_text text-center dark: head_text_dark">Loading...</h3>
+          <h3 className="head_text text-center dark: head_text_dark">
+            Loading...
+          </h3>
         </div>
-      }
-      {loadingStauts === 'error' &&
+      )}
+      {loadingStauts === "error" && (
         <div className="mt-16 flex flex-col items-center">
           <h1 className="head_text text-center dark: head_text_dark">
             <span className="text-3xl">Error on loading</span>
           </h1>
-          <button type="button" className="mt-4 outline_btn dark: outline_btn_white" onClick={handleReloadPageClick}>
-              Try again
+          <button
+            type="button"
+            className="mt-4 outline_btn dark: outline_btn_white"
+            onClick={handleReloadPageClick}
+          >
+            Try again
           </button>
         </div>
-      }
-      { loadingStauts === 'loaded' &&
+      )}
+      {loadingStauts === "loaded" && (
         <PromptCardList
           data={searchText.length ? filteredPosts : posts}
           handleTagClick={handleTagClick}
         />
-      }
+      )}
     </section>
   );
 };
