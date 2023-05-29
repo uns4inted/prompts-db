@@ -15,7 +15,7 @@ export const GET = async (req, { params }) => {
     return new Response(JSON.stringify(prompt), {
       status: 200,
       headers: {
-        "Cache-Control": "s-maxage=0, stale-while-revalidate", // disable caching for dynamic content
+        "Cache-Control": "s-maxage=0, must-revalidate", // disable caching for dynamic content
       },
     });
   } catch (error) {
