@@ -1,6 +1,22 @@
+'use client';
+
+import { useEffect, useState } from "react";
+
 import Feed from "@components/Feed";
 
 const Home = () => {
+  const [posts, setPosts] = useState([]); // prompts of current user
+
+  useEffect(() => {
+    // fetch data from server
+    const fetchPosts = async () => {
+      const res = await fetch(`/api/prompt`);
+      const data = await res.json();
+      setPosts(data);
+    };
+    fetchPosts();
+  }, []);
+
   return (
     <section className="w-full flex-center flex-col">
       <h1 className="head_text text-center dark: head_text_dark">
@@ -13,7 +29,7 @@ const Home = () => {
         discover and share your favorite AI prompts.
       </p>
 
-      <Feed />
+      <Feed posts={posts} />
     </section>
   );
 };

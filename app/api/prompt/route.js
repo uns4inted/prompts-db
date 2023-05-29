@@ -9,8 +9,6 @@ export const GET = async (req) => {
       path: "creator"
     });
 
-    console.log(JSON.stringify(prompts)); 
-
     const response = new Response(JSON.stringify(prompts), {
       status: 200,
     });
