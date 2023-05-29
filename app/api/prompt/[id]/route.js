@@ -11,7 +11,12 @@ export const GET = async (req, { params }) => {
     if (!prompt) {
       return new Response("Prompt not found", { status: 404 });
     }
-    return new Response(JSON.stringify(prompt), { status: 200 });
+    return new Response(JSON.stringify(prompt), {
+      status: 200,
+      headers: {
+        "Cache-Control": "s-maxage=0, stale-while-revalidate", // disable caching for dynamic content
+      },
+    });
   } catch (error) {
     return new Response(error.message, { status: 500 });
   }
